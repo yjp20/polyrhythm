@@ -100,8 +100,6 @@ function viewVisualizer(beat1, beat2, bpm, options) {
 		timer = setTimeout(tick, delay)
 	}
 
-	tick()
-
 	visualizer.classList.add("visualizer")
 
 	for (let i=0; i<beat1; i++) {
@@ -125,6 +123,8 @@ function viewVisualizer(beat1, beat2, bpm, options) {
 	visualizer.killTimer = function () {
 		clearInterval(timer)
 	}
+
+	tick()
 
 	return visualizer
 }
