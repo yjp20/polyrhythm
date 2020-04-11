@@ -1,0 +1,137 @@
+body {
+	font-family: sans-serif;
+	color: #333;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	width: 100%;
+	background-color: #f9f9f9;
+	margin: 0;
+	align-items: center;
+}
+
+#poly {
+	display: flex;
+	flex-direction: column;
+	padding: 1em 2em;
+	margin: auto;
+	background-color: white;
+	z-index: 0;
+	border: 1px solid #ccc;
+	box-shadow: 0 1px 1px 0px #00000021;
+}
+
+.controls {
+	display: flex;
+}
+
+.value {
+	display: flex;
+	align-items: center;
+}
+
+.value:not(:first-child) {
+	margin-left: 2em;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.value_text {
+	margin: 0;
+	text-transform: uppercase;
+	font-size: 0.8em;
+	color: gray;
+}
+
+.value_input {
+	margin-left: 1em;
+	border: 1px solid #ccc;
+	width: 2em;
+	background-color: #f9f9f9;
+	padding: 0.5em 0.8em;
+}
+
+.visualizer {
+	padding: 1em 0;
+	padding-top: 3em;
+}
+
+.row {
+	display: flex;
+	justify-content: center;
+}
+
+.row:not(:first-child) {
+	margin-top: 2em;
+}
+
+.cell {
+	position: relative;
+	color: #999;
+	width: 2em;
+	height: 2em;
+	font-weight: bold;
+	text-align: center;
+	line-height: 2em;
+	z-index: 5;
+	border-radius: 50%;
+	box-shadow: 0 0 0 0 #00000021;
+	transition: 0.1s box-shadow ease;
+}
+
+.cell::before,
+.cell::after {
+	display: block;
+	position: absolute;
+	top: 0;
+	content: " ";
+	border-radius: 50%;
+}
+
+.cell::before {
+	width: 2em;
+	height: 2em;
+	z-index: -1;
+	box-shadow: 0 1px 1px 1px #00000021;
+}
+
+.cell::after {
+	left: -0.5em;
+	top: -0.5em;
+	width: 3em;
+	height: 3em;
+	z-index: -2;
+}
+
+.cell.beat1,
+.cell.beat2 {
+	color: white;
+}
+
+.cell.beat1::before {
+	background-color: salmon;
+}
+
+.cell.beat2::before {
+	background-color: skyblue;
+}
+
+.cell.beat1.beat2::before {
+	background: linear-gradient(135deg, salmon 50%, skyblue 50%);
+}
+
+.cell[data-beat="true"] {
+	box-shadow: 0 1px 0 0.6em #00000021;
+}
+
+.cell:not(:first-child) {
+	margin-left: 2em;
+}
+
