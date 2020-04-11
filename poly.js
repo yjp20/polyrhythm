@@ -7,10 +7,14 @@ function $s(s) {
 }
 
 const poly = $s("#poly")
+const loader = $s("#loader")
 const samples = new Tone.Sampler({
 	"C4": "snare1.wav",
 	"D4": "snare2.wav",
-})
+}, function () {
+	poly.removeChild(loader)
+	poly.appendChild(viewMain())
+}).toMaster()
 
 function viewMain() {
 	const main = document.createElement("div")
@@ -87,15 +91,16 @@ function viewVisualizer(beat1, beat2, bpm, options) {
 	let delay = 60*1000 / bpm / beat2
 
 	function tick() {
-		let x = ~~(it/beat2)
-		let y = it%beat2
-		let t = new Date().getTime()
-		if (prev) prev.dataset.beat = false
-		a[x][y].dataset.beat = true
-		prev = a[x][y]
+		if (it != -1) {
+			let x = ~~(it/beat2)
+			let y = it%beat2
+			if (prev) prev.dataset.beat = false
+			a[x][y].dataset.beat = true
+			prev = a[x][y]
+		}
 		// queue for next beat to reduce lag
-		if ((it+1)%beat1 == 0) sampler.triggerAttackRelease("C4", delay/2, t+delay)
-		if ((it+1)%beat2 == 0) sampler.triggerAttackRelease("D4", delay/2, t+delay)
+		if ((it+1)%beat1 == 0) sampler.triggerAttackRelease("C4", delay/2, "+"+delay)
+		if ((it+1)%beat2 == 0) sampler.triggerAttackRelease("D4", delay/2, "+"+delay)
 		it = (it+1) % (beat1*beat2)
 		timer = setTimeout(tick, delay)
 	}
@@ -128,7 +133,3 @@ function viewVisualizer(beat1, beat2, bpm, options) {
 
 	return visualizer
 }
-
-poly.appendChild(viewMain())
-
-
