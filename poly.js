@@ -8,7 +8,7 @@ function $s(s) {
 
 const poly = $s("#poly")
 const loader = $s("#loader")
-const samples = new Tone.Sampler({
+const sampler = new Tone.Sampler({
 	"C4": "snare1.wav",
 	"D4": "snare2.wav",
 }, function () {
@@ -99,8 +99,8 @@ function viewVisualizer(beat1, beat2, bpm, options) {
 			prev = a[x][y]
 		}
 		// queue for next beat to reduce lag
-		if ((it+1)%beat1 == 0) sampler.triggerAttackRelease("C4", delay/2, "+"+delay)
-		if ((it+1)%beat2 == 0) sampler.triggerAttackRelease("D4", delay/2, "+"+delay)
+		if ((it+1)%beat1 == 0) sampler.triggerAttackRelease("C4", delay/2, "+"+delay/1000)
+		if ((it+1)%beat2 == 0) sampler.triggerAttackRelease("D4", delay/2, "+"+delay/1000)
 		it = (it+1) % (beat1*beat2)
 		timer = setTimeout(tick, delay)
 	}
